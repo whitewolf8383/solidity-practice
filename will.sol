@@ -21,6 +21,13 @@ contract Will {
     _;
   }
 
-  address payable[] familyWallets
+  address payable[] familyWallets;
+
+  mapping(adress => uint) inheritance;
+    
+  function setInheritance(address payable wallet, uint amount) public {
+      familyWallets.push(wallet);
+      inheritance[wallet] = amount;
+  }
 
 }
