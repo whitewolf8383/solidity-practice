@@ -1,18 +1,39 @@
 pragma solidity ^0.5.0;
 
 contract MyContract {
-  string value;
-
+  string public value = "myValue";
+  bool public myBool = true;
+  uint public myInt = 1;
+  uint256 public peopleCount;
+  mapping(uint => Person) public people;
+  
+  enum State { Waiting, Ready, Active }
+  State public state;
+  
+  struct Person {
+      uint _id;
+      string _firstName;
+      string _lastName;
+  }
+  
   constructor() public {
-    value = "myValue";
+      state = State.Waiting;
+  }
+  
+  function addPerson(string memory _firstName, string memory _lastName) public {
+      peopleCount++;
+      people[peopleCount] = Person(peopleCount, _firstName, _lastName);
+  }
+  
+  function activate() public {
+      state = State.Active;
+  }
+  
+  function isActive() public view returns(bool) {
+      return state == State.Active;
   }
 
-  function get() public view returns(string) {
-    return value;
-  }
-
-  function set (string _value) public {
+  function set (string memory _value) public {
     value = _value;
   }
-
 }
